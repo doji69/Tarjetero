@@ -1,10 +1,12 @@
 package com.fenixbcn.tarjetero;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -25,6 +27,7 @@ import yuku.ambilwarna.AmbilWarnaDialog;
 public class TagsMainActivity extends AppCompatActivity {
 
     private ListView lvListaTags;
+    ArrayList<TagsClass> alTags;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +37,7 @@ public class TagsMainActivity extends AppCompatActivity {
         // control del listado de tags y select que lo rellena
 
         lvListaTags = (ListView) findViewById(R.id.lvListaTags);
-        ArrayList<TagsClass> alTags = new ArrayList<>();
+        alTags = new ArrayList<>();
         TagsAdapter tags;
 
         DataBaseClass dbTajetero = new DataBaseClass(TagsMainActivity.this, "tarjetero", null, 1);
@@ -47,13 +50,10 @@ public class TagsMainActivity extends AppCompatActivity {
 
             do {
 
-                alTags.add(new TagsClass(selectCursor.getString(1), selectCursor.getInt(2)));
+                alTags.add(new TagsClass(selectCursor.getInt(0), selectCursor.getString(1), selectCursor.getInt(2)));
 
             } while (selectCursor.moveToNext());
         }
-
-        //alTags.add(new TagsClass("pepe", -6340683));
-        //alTags.add(new TagsClass("javito", -11094721));
 
         tags = new TagsAdapter(this, alTags);
 
@@ -113,19 +113,51 @@ public class TagsMainActivity extends AppCompatActivity {
     public boolean onContextItemSelected(MenuItem item) {
 
         final AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-        int tagItemId = (int)info.id;
+        final int tagItemIdSel = (int)info.position;
+        final int tagItemId = alTags.get(tagItemIdSel).getTagId();
 
         if (item.getTitle()=="Modificar") {
 
-            Toast.makeText(TagsMainActivity.this, "modificamos item " + tagItemId, Toast.LENGTH_SHORT).show();
-            Intent AddTagActivityVars = new Intent(getApplication(), AddTagActivity.class);
-            AddTagActivityVars.putExtra("tagItemId", tagItemId);
-            AddTagActivityVars.putExtra("tagAction", "modificar");
-            startActivity(AddTagActivityVars);
+            Toast.makeText(TagsMainActivity.this, "Modify tag " + tagItemId, Toast.LENGTH_SHORT).show();
+            Intent ModifyTagActivityVars = new Intent(getApplication(), ModifyTagActivity.class);
+            ModifyTagActivityVars.putExtra("tagItemId", tagItemId);
+            //ModifyTagActivityVars.putExtra("tagAction", "modificar");
+            startActivity(ModifyTagActivityVars);
 
         } else if (item.getTitle()=="Eliminar") {
 
-            Toast.makeText(TagsMainActivity.this, "eliminamos item " + tagItemId, Toast.LENGTH_SHORT).show();
+            Toast.makeText(TagsMainActivity.this, "Delete tag " + tagItemId, Toast.LENGTH_SHORT).show();
+            AlertDialog.Builder adDeleteBuilder = new AlertDialog.Builder(this);
+            adDeleteBuilder.setTitle("Borrado de tags");
+            adDeleteBuilder.setMessage("Desea borrar este tag?");
+            adDeleteBuilder.setPositiveButton("si", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                    DataBaseClass dbTajetero = new DataBaseClass(TagsMainActivity.this, "tarjetero", null, 1);
+                    SQLiteDatabase db = dbTajetero.getWritableDatabase();
+                    String sqlUpdate = "DELETE FROM tags WHERE id_tag=" + tagItemId;
+                    db.execSQL(sqlUpdate);
+                    db.close();
+
+                    Toast.makeText(TagsMainActivity.this, "Delete correcto",Toast.LENGTH_SHORT).show();
+
+                    Intent viewTagsViewActivity = new Intent(getApplication(), TagsMainActivity.class);
+                    startActivity(viewTagsViewActivity);
+
+                }
+            });
+
+            adDeleteBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.cancel();
+
+                }
+            });
+
+            AlertDialog adDelete = adDeleteBuilder.create();
+            adDelete.show();
 
         }
 

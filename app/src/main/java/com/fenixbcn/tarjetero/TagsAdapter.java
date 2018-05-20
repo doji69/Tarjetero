@@ -34,6 +34,9 @@ public class TagsAdapter extends ArrayAdapter {
 
         TagsClass tagActual = mListaTags.get(position);
 
+        TextView idTag = (TextView) vista.findViewById(R.id.tvTagId);
+        idTag.setText(String.valueOf(tagActual.getTagId()));
+
         TextView nombreTag = (TextView) vista.findViewById(R.id.tvTagName);
         nombreTag.setText(tagActual.getNombreTag());
 

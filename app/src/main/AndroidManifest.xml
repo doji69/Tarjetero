@@ -17,7 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".TagsMainActivity" />
-        <activity android:name=".AddTagActivity"></activity>
+        <activity android:name=".AddTagActivity" />
+        <activity android:name=".ModifyTagActivity"></activity>
     </application>
 
 </manifest>

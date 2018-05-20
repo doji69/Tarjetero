@@ -2,12 +2,18 @@ package com.fenixbcn.tarjetero;
 
 public class TagsClass {
 
-    int tagColor;
+    int tagId, tagColor;
     String tagName;
 
-    public TagsClass(String nombre_tag, int color_tag) {
+    public TagsClass(int id_tag, String nombre_tag, int color_tag) {
+        this.tagId = id_tag;
         this.tagName = nombre_tag;
         this.tagColor = color_tag;
+    }
+
+    public int getTagId() {
+
+        return tagId;
     }
 
     public String getNombreTag () {
