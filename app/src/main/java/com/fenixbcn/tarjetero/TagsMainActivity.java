@@ -76,8 +76,8 @@ public class TagsMainActivity extends AppCompatActivity {
 
             case R.id.iAddTag:
                 //Toast.makeText(TagsMainActivity.this, "Add Tag", Toast.LENGTH_SHORT).show();
-                Intent viewTagsViewActivity = new Intent(getApplication(), AddTagActivity.class);
-                startActivity(viewTagsViewActivity);
+                Intent AddTagsActivityVars = new Intent(getApplication(), AddTagActivity.class);
+                startActivity(AddTagsActivityVars);
                 return true;
 
             default:
@@ -133,8 +133,8 @@ public class TagsMainActivity extends AppCompatActivity {
 
                     Toast.makeText(TagsMainActivity.this, "Delete correcto",Toast.LENGTH_SHORT).show();
 
-                    Intent viewTagsViewActivity = new Intent(getApplication(), TagsMainActivity.class);
-                    startActivity(viewTagsViewActivity);
+                    Intent TagsMainActivityVars = new Intent(getApplication(), TagsMainActivity.class);
+                    startActivity(TagsMainActivityVars);
 
                 }
             });

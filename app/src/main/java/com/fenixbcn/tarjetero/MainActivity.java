@@ -40,8 +40,8 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.iTags:
                 //Toast.makeText(MainActivity.this, "Tags", Toast.LENGTH_SHORT).show();
-                Intent viewTagsViewActivity = new Intent(getApplication(), TagsMainActivity.class);
-                startActivity(viewTagsViewActivity);
+                Intent TagsMainActivityVars = new Intent(getApplication(), TagsMainActivity.class);
+                startActivity(TagsMainActivityVars);
                 return true;
 
             default:

@@ -79,8 +79,8 @@ public class AddTagActivity extends AppCompatActivity {
 
                 Toast.makeText(AddTagActivity.this, "Insert correcto",Toast.LENGTH_SHORT).show();
 
-                Intent viewTagsViewActivity = new Intent(getApplication(), TagsMainActivity.class);
-                startActivity(viewTagsViewActivity);
+                Intent TagsMainActivityVars = new Intent(getApplication(), TagsMainActivity.class);
+                startActivity(TagsMainActivityVars);
 
             }
         });
@@ -94,8 +94,8 @@ public class AddTagActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent viewTagsViewActivity = new Intent(getApplication(), TagsMainActivity.class);
-                startActivity(viewTagsViewActivity);
+                Intent TagsMainActivityVars = new Intent(getApplication(), TagsMainActivity.class);
+                startActivity(TagsMainActivityVars);
 
             }
         });

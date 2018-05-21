@@ -83,8 +83,8 @@ public class ModifyTagActivity extends AppCompatActivity {
 
                 Toast.makeText(ModifyTagActivity.this, "Update correcto " + tagItemId,Toast.LENGTH_SHORT).show();
 
-                Intent viewTagsViewActivity = new Intent(getApplication(), TagsMainActivity.class);
-                startActivity(viewTagsViewActivity);
+                Intent TagsMainActivityVars = new Intent(getApplication(), TagsMainActivity.class);
+                startActivity(TagsMainActivityVars);
 
             }
         });
@@ -98,8 +98,8 @@ public class ModifyTagActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent viewTagsViewActivity = new Intent(getApplication(), TagsMainActivity.class);
-                startActivity(viewTagsViewActivity);
+                Intent TagsMainActivityVars = new Intent(getApplication(), TagsMainActivity.class);
+                startActivity(TagsMainActivityVars);
 
             }
         });
