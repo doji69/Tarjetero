@@ -5,9 +5,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -74,7 +71,7 @@ public class AddTagActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                SQLiteDatabase db = functions.accessToDb(AddTagActivity.this); // la llamada a la apertura de la base de datos esta en una funcion en la clase functions
+                SQLiteDatabase db = Functions.accessToDb(AddTagActivity.this); // la llamada a la apertura de la base de datos esta en una funcion en la clase Functions
 
                 String sqlInsert = "INSERT INTO tags (nombre_tag, color_tag) values ('"+ etNombre.getText()+"', "+ mDefaultColor+")";
                 db.execSQL(sqlInsert);

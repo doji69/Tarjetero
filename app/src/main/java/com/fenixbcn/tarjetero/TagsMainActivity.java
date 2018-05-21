@@ -4,8 +4,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.constraint.ConstraintLayout;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,14 +13,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-
-import yuku.ambilwarna.AmbilWarnaDialog;
 
 public class TagsMainActivity extends AppCompatActivity {
 
@@ -40,7 +34,7 @@ public class TagsMainActivity extends AppCompatActivity {
         alTags = new ArrayList<>();
         TagsAdapter tags;
 
-        SQLiteDatabase db = functions.accessToDb(TagsMainActivity.this); // la llamada a la apertura de la base de datos esta en una funcion en la clase functions
+        SQLiteDatabase db = Functions.accessToDb(TagsMainActivity.this); // la llamada a la apertura de la base de datos esta en una funcion en la clase Functions
         String selectTags = "SELECT * from tags";
         Cursor selectCursor = db.rawQuery(selectTags,null);
 
@@ -132,7 +126,7 @@ public class TagsMainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
 
-                    SQLiteDatabase db = functions.accessToDb(TagsMainActivity.this); // la llamada a la apertura de la base de datos esta en una funcion en la clase functions
+                    SQLiteDatabase db = Functions.accessToDb(TagsMainActivity.this); // la llamada a la apertura de la base de datos esta en una funcion en la clase Functions
                     String sqlUpdate = "DELETE FROM tags WHERE id_tag=" + tagItemId;
                     db.execSQL(sqlUpdate);
                     db.close();

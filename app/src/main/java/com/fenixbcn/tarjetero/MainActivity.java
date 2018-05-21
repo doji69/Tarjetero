@@ -55,9 +55,7 @@ public class MainActivity extends AppCompatActivity {
     private void startDataBase () {
 
         // Creamos y abrimos la bbdd
-        DataBaseClass dbTajetero = new DataBaseClass(this, "tarjetero", null, 1);
-        SQLiteDatabase db = dbTajetero.getWritableDatabase();
-        dbTajetero.close();
-
+        SQLiteDatabase db = Functions.accessToDb(MainActivity.this); // la llamada a la apertura de la base de datos esta en una funcion en la clase functions
+        db.close();
     }
 }
