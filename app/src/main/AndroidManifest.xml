@@ -18,7 +18,8 @@
         </activity>
         <activity android:name=".TagsMainActivity" />
         <activity android:name=".AddTagActivity" />
-        <activity android:name=".ModifyTagActivity"></activity>
+        <activity android:name=".ModifyTagActivity" />
+        <activity android:name=".CardsMainActivity"></activity>
     </application>
 
 </manifest>

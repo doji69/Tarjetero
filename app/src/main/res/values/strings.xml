@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">Tarjetero</string>
     <string name="itemTags">Tags</string>
-    <string name="itemCamera">Camera</string>
+    <string name="itemCarts">Cards</string>
 </resources>
