@@ -40,9 +40,7 @@ public class TagsMainActivity extends AppCompatActivity {
         alTags = new ArrayList<>();
         TagsAdapter tags;
 
-        DataBaseClass dbTajetero = new DataBaseClass(TagsMainActivity.this, "tarjetero", null, 1);
-        SQLiteDatabase db = dbTajetero.getWritableDatabase();
-
+        SQLiteDatabase db = functions.accessToDb(TagsMainActivity.this); // la llamada a la apertura de la base de datos esta en una funcion en la clase functions
         String selectTags = "SELECT * from tags";
         Cursor selectCursor = db.rawQuery(selectTags,null);
 
@@ -113,8 +111,8 @@ public class TagsMainActivity extends AppCompatActivity {
     public boolean onContextItemSelected(MenuItem item) {
 
         final AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-        final int tagItemIdSel = (int)info.position;
-        final int tagItemId = alTags.get(tagItemIdSel).getTagId();
+        final int tagItemIdSel = (int)info.position; // obtiene la posicion del listitem
+        final int tagItemId = alTags.get(tagItemIdSel).getTagId(); // obtiene el id del tag clicado
 
         if (item.getTitle()=="Modificar") {
 
@@ -134,8 +132,7 @@ public class TagsMainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
 
-                    DataBaseClass dbTajetero = new DataBaseClass(TagsMainActivity.this, "tarjetero", null, 1);
-                    SQLiteDatabase db = dbTajetero.getWritableDatabase();
+                    SQLiteDatabase db = functions.accessToDb(TagsMainActivity.this); // la llamada a la apertura de la base de datos esta en una funcion en la clase functions
                     String sqlUpdate = "DELETE FROM tags WHERE id_tag=" + tagItemId;
                     db.execSQL(sqlUpdate);
                     db.close();

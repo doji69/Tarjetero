@@ -48,9 +48,7 @@ public class ModifyTagActivity extends AppCompatActivity {
 
         String stTagsItemId = String.valueOf(tagItemId);
 
-        DataBaseClass dbTajetero = new DataBaseClass(ModifyTagActivity.this, "tarjetero", null, 1);
-        SQLiteDatabase db = dbTajetero.getWritableDatabase();
-
+        SQLiteDatabase db = functions.accessToDb(ModifyTagActivity.this); // la llamada a la apertura de la base de datos esta en una funcion en la clase functions
         String[] select_params = new String[] {stTagsItemId};
         String sqlSelect = "SELECT * FROM tags WHERE id_tag=?";
         Cursor cursor = db.rawQuery(sqlSelect, select_params);
@@ -78,8 +76,7 @@ public class ModifyTagActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                DataBaseClass dbTajetero = new DataBaseClass(ModifyTagActivity.this, "tarjetero", null, 1);
-                SQLiteDatabase db = dbTajetero.getWritableDatabase();
+                SQLiteDatabase db = functions.accessToDb(ModifyTagActivity.this); // la llamada a la apertura de la base de datos esta en una funcion en la clase functions
                 String sqlUpdate = "UPDATE tags SET nombre_tag='" + etNombre.getText() + "' , color_tag="+ mDefaultColor + " WHERE id_tag=" + tagItemId;
                 db.execSQL(sqlUpdate);
                 db.close();

@@ -74,8 +74,8 @@ public class AddTagActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                DataBaseClass dbTajetero = new DataBaseClass(AddTagActivity.this, "tarjetero", null, 1);
-                SQLiteDatabase db = dbTajetero.getWritableDatabase();
+                SQLiteDatabase db = functions.accessToDb(AddTagActivity.this); // la llamada a la apertura de la base de datos esta en una funcion en la clase functions
+
                 String sqlInsert = "INSERT INTO tags (nombre_tag, color_tag) values ('"+ etNombre.getText()+"', "+ mDefaultColor+")";
                 db.execSQL(sqlInsert);
                 db.close();
