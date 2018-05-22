@@ -127,8 +127,8 @@ public class TagsMainActivity extends AppCompatActivity {
                 public void onClick(DialogInterface dialogInterface, int i) {
 
                     SQLiteDatabase db = Functions.accessToDb(TagsMainActivity.this); // la llamada a la apertura de la base de datos esta en una funcion en la clase Functions
-                    String sqlUpdate = "DELETE FROM tags WHERE id_tag=" + tagItemId;
-                    db.execSQL(sqlUpdate);
+                    String sqlDelete = "DELETE FROM tags WHERE id_tag=" + tagItemId;
+                    db.execSQL(sqlDelete);
                     db.close();
 
                     Toast.makeText(TagsMainActivity.this, "Delete correcto",Toast.LENGTH_SHORT).show();

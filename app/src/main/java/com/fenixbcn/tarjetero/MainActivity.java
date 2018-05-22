@@ -35,7 +35,9 @@ public class MainActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.iCamera:
-                Toast.makeText(MainActivity.this, "Camera", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this, "Camera", Toast.LENGTH_SHORT).show();
+                Intent CardsMainActivityVars = new Intent(getApplication(), CardsMainActivity.class);
+                startActivity(CardsMainActivityVars);
                 return true;
 
             case R.id.iTags:

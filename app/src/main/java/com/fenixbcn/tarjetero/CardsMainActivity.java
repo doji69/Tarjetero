@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -15,13 +16,17 @@ import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class CardsMainActivity extends AppCompatActivity {
@@ -31,23 +36,25 @@ public class CardsMainActivity extends AppCompatActivity {
     private static final int camPermision = 10; // codigo unico de referencia de respuesta de la activity
     private ImageView takedPhoto;
     private String imageFullPath = "";
-    private String galleryDirectory = "image gallery";
+    private String galleryDirectory = "imageGallery";
     private File fGalleryDirectory;
+    Spinner sTags;
+    ArrayList<String> alTagsSpinner = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cards_main);
 
-        createImageDirectory();
-
+        // control y gestion de la camara y del guardado de fotos
+        createImageDirectory(); // crea el directorio donde se guardaran las fotos si no existe ya
         takedPhoto = (ImageView) findViewById(R.id.iwTakedPhoto);
 
         takedPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(v.getContext(), "llamanda a la camara", Toast.LENGTH_LONG).show();
 
+                // control de los permisos necesarios para acceder a la memoria del telefono
                 if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
 
                     callingCamApp();
@@ -58,8 +65,35 @@ public class CardsMainActivity extends AppCompatActivity {
                     requestPermissions(permisos_respondidos, externaStoragePermision);
 
                 }
+
+                // fin control de los permisos necesarios para acceder a la memoria del telefono
             }
         });
+        // fin control y gestion de la camara y del guardado de fotos
+
+        // rellenado del spinner con los tags de la base de datos
+
+        SQLiteDatabase db = Functions.accessToDb(this);
+        sTags = (Spinner) findViewById(R.id.sTags);
+        alTagsSpinner.add("Selecciona un tag");
+
+        String sqlSelect = "SELECT * FROM tags";
+        Cursor cursor = db.rawQuery(sqlSelect, null);
+
+        if (cursor.moveToFirst()) {
+
+            do {
+                alTagsSpinner.add(cursor.getString(1));
+
+            } while (cursor.moveToNext());
+        }
+
+        db.close();
+
+        ArrayAdapter<String> aaSpinnerTags = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, alTagsSpinner);
+        sTags.setAdapter(aaSpinnerTags);
+
+        // fin rellenado del spinner con los tags de la base de datos
     }
 
     @Override
@@ -75,7 +109,6 @@ public class CardsMainActivity extends AppCompatActivity {
 
                 Toast.makeText(this, "No se puede guardar datos sin permisos", Toast.LENGTH_LONG).show();
             }
-
         }
     }
 
@@ -86,15 +119,17 @@ public class CardsMainActivity extends AppCompatActivity {
         File photoFile = null;
         try {
             photoFile = createImageFile();
+            Log.d(TAG, "el photoFile "+ photoFile );
         } catch (IOException e){
             e.printStackTrace();
         }
 
         String authorities = getApplicationContext().getPackageName() + ".fileprovider";
-        Uri imageUri = FileProvider.getUriForFile(this, authorities, photoFile);
+        Log.d(TAG, "el authorities "+ authorities );
+        Uri imageUri = FileProvider.getUriForFile(CardsMainActivity.this, authorities, photoFile);
 
         //callCameraApp.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
-
+        Log.d(TAG, "el imageUri "+ imageUri );
         callCameraApp.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
         startActivityForResult(callCameraApp, camPermision);
 
@@ -139,11 +174,11 @@ public class CardsMainActivity extends AppCompatActivity {
 
         File image = File.createTempFile(imageFileName, ".jpg", fGalleryDirectory);
 
-        //Log.d(TAG, "el archivo es " + image);
+        Log.d(TAG, "el archivo es " + image);
 
         imageFullPath = image.getAbsolutePath();
 
-        //Log.d(TAG, "el full path es " + imageFullPath);
+        Log.d(TAG, "el full path es " + imageFullPath);
 
         return image;
 
@@ -177,9 +212,7 @@ public class CardsMainActivity extends AppCompatActivity {
                 file.delete();
 
             }
-
         }
-
     }
 
     private Bitmap setReducedImageSize () {
@@ -201,7 +234,6 @@ public class CardsMainActivity extends AppCompatActivity {
         //takedPhoto.setImageBitmap(photoReducedSize);
 
         return BitmapFactory.decodeFile(imageFullPath, bmOptions);
-
     }
 
     private void rotateImage (Bitmap bitmap) {
