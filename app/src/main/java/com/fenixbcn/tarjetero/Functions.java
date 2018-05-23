@@ -7,7 +7,7 @@ public class Functions {
 
     public static SQLiteDatabase accessToDb (Context contex) {
 
-        DataBaseClass dbTajetero = new DataBaseClass(contex, "tarjetero", null, 1);
+        DataBaseClass dbTajetero = new DataBaseClass(contex, "tarjetero", null, 2);
         SQLiteDatabase db = dbTajetero.getWritableDatabase();
 
         return db;

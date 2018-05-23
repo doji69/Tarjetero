@@ -27,5 +27,8 @@ public class DataBaseClass extends SQLiteOpenHelper {
         // se puede tanto borrar las tablas y crear unas nuevas con la modificaciones integradas como
         // crear las secuencias sql ALTER TABLE y actualizar las tablas necesarias.
 
+        String sqlCreate = "CREATE TABLE cards (id_card INTEGER PRIMARY KEY AUTOINCREMENT, nombre_car TEXT, id_tag INTEGER)";
+        sqLiteDatabase.execSQL(sqlCreate); // si no existe la bd la crea
+
     }
 }

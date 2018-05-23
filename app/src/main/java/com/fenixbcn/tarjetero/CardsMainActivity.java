@@ -20,6 +20,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -40,8 +41,12 @@ public class CardsMainActivity extends AppCompatActivity {
     private String imageFullPath = "";
     private String galleryDirectory = "imageGallery";
     private File fGalleryDirectory;
+
     Spinner sTags;
     final List<TagsSpinnerClass> lTagsSpinner = new ArrayList<>();
+    int id_tag;
+
+    private Button btnSaveCard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +104,10 @@ public class CardsMainActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
+                id_tag = lTagsSpinner.get(i).getId_tag();
+
+                Toast.makeText(CardsMainActivity.this, id_tag + " " + imageFullPath, Toast.LENGTH_LONG).show();
+
             }
 
             @Override
@@ -107,6 +116,31 @@ public class CardsMainActivity extends AppCompatActivity {
             }
         });
         // fin rellenado del spinner con los tags de la base de datos
+
+
+        // control boton de guardado de la foto con el tag
+
+        btnSaveCard = (Button) findViewById(R.id.btnSaveCard);
+        btnSaveCard.setEnabled(false); // el boton esta deshabilitado si no hay foto
+
+        btnSaveCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                SQLiteDatabase db = Functions.accessToDb(CardsMainActivity.this); // la llamada a la apertura de la base de datos esta en una funcion en la clase Functions
+                String sqlInsert = "INSERT INTO cards (nombre_car, id_tag) values ('" + imageFullPath + "', " + id_tag + ")";
+                db.execSQL(sqlInsert);
+                db.close();
+
+                Toast.makeText(CardsMainActivity.this, "Insert correcto",Toast.LENGTH_SHORT).show();
+
+                Intent MainActivityVars = new Intent(getApplication(), MainActivity.class);
+                startActivity(MainActivityVars);
+
+            }
+        });
+
+        // fin control boton de guardado de la foto con el tag
     }
 
     @Override
@@ -132,17 +166,17 @@ public class CardsMainActivity extends AppCompatActivity {
         File photoFile = null;
         try {
             photoFile = createImageFile();
-            Log.d(TAG, "el photoFile "+ photoFile );
+            //Log.d(TAG, "el photoFile "+ photoFile );
         } catch (IOException e){
             e.printStackTrace();
         }
 
         String authorities = getApplicationContext().getPackageName() + ".fileprovider";
-        Log.d(TAG, "el authorities "+ authorities );
+        //Log.d(TAG, "el authorities "+ authorities );
         Uri imageUri = FileProvider.getUriForFile(CardsMainActivity.this, authorities, photoFile);
 
         //callCameraApp.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
-        Log.d(TAG, "el imageUri "+ imageUri );
+        //Log.d(TAG, "el imageUri "+ imageUri );
         callCameraApp.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
         startActivityForResult(callCameraApp, camPermision);
 
@@ -153,15 +187,10 @@ public class CardsMainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == camPermision && resultCode == RESULT_OK) {
-            //Toast.makeText(this, "foto tomada correctamente", Toast.LENGTH_SHORT).show();
-            //Bitmap capturedPhoto = (Bitmap) data.getExtras().get("data");
-            //takedPhoto.setImageBitmap(capturedPhoto);
-
-            //Bitmap capturedPhoto = BitmapFactory.decodeFile(imageFullPath);
-            //takedPhoto.setImageBitmap(capturedPhoto);
 
             rotateImage(setReducedImageSize());
             deleteCamFile();
+            btnSaveCard.setEnabled(true); // activamos el boton cuando hay foto
         }
     }
 
@@ -180,18 +209,16 @@ public class CardsMainActivity extends AppCompatActivity {
 
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "IMAGE_" + timeStamp + "_";
-        //File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-
 
         //Log.d(TAG, "el directorio es " + storageDir);
 
         File image = File.createTempFile(imageFileName, ".jpg", fGalleryDirectory);
 
-        Log.d(TAG, "el archivo es " + image);
+        //Log.d(TAG, "el archivo es " + image);
 
         imageFullPath = image.getAbsolutePath();
 
-        Log.d(TAG, "el full path es " + imageFullPath);
+        //Log.d(TAG, "el full path es " + imageFullPath);
 
         return image;
 
@@ -243,8 +270,8 @@ public class CardsMainActivity extends AppCompatActivity {
         scaleFactor = Math.min(cameraImageWidth/targetImageViewWidth, cameraImageHeight/targetImageViewHeight);
         bmOptions.inSampleSize = 2;
         bmOptions.inJustDecodeBounds = false;
-        //Bitmap photoReducedSize = BitmapFactory.decodeFile(imageFullPath, bmOptions);
-        //takedPhoto.setImageBitmap(photoReducedSize);
+        Bitmap photoReducedSize = BitmapFactory.decodeFile(imageFullPath, bmOptions);
+        takedPhoto.setImageBitmap(photoReducedSize);
 
         return BitmapFactory.decodeFile(imageFullPath, bmOptions);
     }
