@@ -18,6 +18,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -28,6 +29,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class CardsMainActivity extends AppCompatActivity {
 
@@ -39,7 +41,7 @@ public class CardsMainActivity extends AppCompatActivity {
     private String galleryDirectory = "imageGallery";
     private File fGalleryDirectory;
     Spinner sTags;
-    ArrayList<String> alTagsSpinner = new ArrayList<String>();
+    final List<TagsSpinnerClass> lTagsSpinner = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +77,6 @@ public class CardsMainActivity extends AppCompatActivity {
 
         SQLiteDatabase db = Functions.accessToDb(this);
         sTags = (Spinner) findViewById(R.id.sTags);
-        alTagsSpinner.add("Selecciona un tag");
 
         String sqlSelect = "SELECT * FROM tags";
         Cursor cursor = db.rawQuery(sqlSelect, null);
@@ -83,16 +84,28 @@ public class CardsMainActivity extends AppCompatActivity {
         if (cursor.moveToFirst()) {
 
             do {
-                alTagsSpinner.add(cursor.getString(1));
+
+                lTagsSpinner.add(new TagsSpinnerClass(cursor.getInt(0), cursor.getString(1), cursor.getInt(2)));
 
             } while (cursor.moveToNext());
         }
 
         db.close();
 
-        ArrayAdapter<String> aaSpinnerTags = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, alTagsSpinner);
-        sTags.setAdapter(aaSpinnerTags);
+        TagsSpinnerAdapter tagsSpinnerAdapter = new TagsSpinnerAdapter(this, R.layout.spinner_single_tag, lTagsSpinner);
+        sTags.setAdapter(tagsSpinnerAdapter);
 
+        sTags.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
         // fin rellenado del spinner con los tags de la base de datos
     }
 
