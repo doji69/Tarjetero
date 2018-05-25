@@ -76,8 +76,8 @@ public class TagsMainActivity extends AppCompatActivity {
 
             case R.id.iAddTag:
                 //Toast.makeText(TagsMainActivity.this, "Add Tag", Toast.LENGTH_SHORT).show();
-                Intent AddTagsActivityVars = new Intent(getApplication(), AddTagActivity.class);
-                startActivity(AddTagsActivityVars);
+                Intent addTagsActivityVars = new Intent(getApplication(), AddTagActivity.class);
+                startActivity(addTagsActivityVars);
                 return true;
 
             default:
@@ -111,10 +111,10 @@ public class TagsMainActivity extends AppCompatActivity {
         if (item.getTitle()=="Modificar") {
 
             Toast.makeText(TagsMainActivity.this, "Modify tag " + tagItemId, Toast.LENGTH_SHORT).show();
-            Intent ModifyTagActivityVars = new Intent(getApplication(), ModifyTagActivity.class);
-            ModifyTagActivityVars.putExtra("tagItemId", tagItemId);
+            Intent modifyTagActivityVars = new Intent(getApplication(), ModifyTagActivity.class);
+            modifyTagActivityVars.putExtra("tagItemId", tagItemId);
             //ModifyTagActivityVars.putExtra("tagAction", "modificar");
-            startActivity(ModifyTagActivityVars);
+            startActivity(modifyTagActivityVars);
 
         } else if (item.getTitle()=="Eliminar") {
 

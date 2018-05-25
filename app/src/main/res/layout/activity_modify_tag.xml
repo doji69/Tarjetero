@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:textSize="20dp"
+        android:textSize="30dp"
         android:text="Modificar Tag"
         android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent" />
@@ -24,7 +24,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text="Nombre"
-        android:textSize="14dp"
+        android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
 
@@ -35,7 +35,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:hint="Nombre"
-        android:textSize="14dp"
+        android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvNombre" />
 
@@ -46,7 +46,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Color"
-        android:textSize="14dp"
+        android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etNombre" />
 
@@ -57,7 +57,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Color"
-        android:textSize="14dp"
+        android:textSize="20dp"
         android:background="@color/colorPrimary"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvColor" />

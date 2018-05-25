@@ -1,15 +1,24 @@
 package com.fenixbcn.tarjetero;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
+
+    private ListView lvMainListaTags;
+    ArrayList<TagsClass> alMainTags;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +26,43 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         startDataBase(); // arrancamos la base de datos
+
+        // control y mostrado de la lista en el main principal donde poder ver los tags y cuantas cards hay en cada tag
+
+        lvMainListaTags = (ListView) findViewById(R.id.lvMainListaTags);
+        alMainTags = new ArrayList<>();
+        TagsAdapter mainTags;
+
+        SQLiteDatabase db = Functions.accessToDb(MainActivity.this); // la llamada a la apertura de la base de datos esta en una funcion en la clase Functions
+        String selectMainTags = "SELECT * from tags";
+        Cursor selectCursor = db.rawQuery(selectMainTags,null);
+
+        if (selectCursor.moveToFirst()) {
+
+            do {
+
+                alMainTags.add(new TagsClass(selectCursor.getInt(0), selectCursor.getString(1), selectCursor.getInt(2)));
+
+            } while (selectCursor.moveToNext());
+        }
+
+        mainTags = new TagsAdapter(this, alMainTags);
+        lvMainListaTags.setAdapter(mainTags);
+
+        // fin control y mostrado de la lista en el main principal donde poder ver los tags y cuantas cards hay en cada tag
+
+        lvMainListaTags.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                // activity que mostrara en una grid los cards de esta tag
+                //Toast.makeText(MainActivity.this, "" + alMainTags.get(i).getTagId(), Toast.LENGTH_LONG).show();
+
+                Intent cardsGridActivityVars = new Intent(getApplication(), CardsGridActivity.class);
+                cardsGridActivityVars.putExtra("tagItemId", alMainTags.get(i).getTagId());
+                startActivity(cardsGridActivityVars);
+
+            }
+        });
 
     }
 

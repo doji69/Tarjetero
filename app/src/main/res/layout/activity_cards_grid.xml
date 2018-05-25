@@ -4,12 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TagsMainActivity">
+    tools:context=".CardsGridActivity">
 
-    <ListView
-        android:id="@+id/lvListaTags"
+    <GridView
+        android:id="@+id/gvPhotos"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:numColumns="auto_fit"
+        android:columnWidth="120dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -18,5 +20,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
 
 </android.support.constraint.ConstraintLayout>

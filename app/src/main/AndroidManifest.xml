@@ -34,7 +34,7 @@
                 android:resource="@xml/filepaths" />
         </provider>
 
-
+        <activity android:name=".CardsGridActivity"></activity>
     </application>
 
 </manifest>

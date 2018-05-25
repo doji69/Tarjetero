@@ -1,5 +1,7 @@
 package com.fenixbcn.tarjetero;
 
+import android.database.sqlite.SQLiteDatabase;
+
 public class TagsClass {
 
     int tagId, tagColor;
@@ -25,4 +27,5 @@ public class TagsClass {
 
         return tagColor;
     }
+
 }
