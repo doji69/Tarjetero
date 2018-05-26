@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import yuku.ambilwarna.AmbilWarnaDialog;
 
-public class ModifyTagActivity extends AppCompatActivity {
+public class TagModifyActivity extends AppCompatActivity {
 
     TextView tvColorSelected;
     EditText etNombre;
@@ -28,7 +28,7 @@ public class ModifyTagActivity extends AppCompatActivity {
         // variables y control para el selector de color
 
         tvColorSelected = (TextView) findViewById(R.id.tvColorSelected);
-        mDefaultColor = ContextCompat.getColor(ModifyTagActivity.this, R.color.colorPrimary);
+        mDefaultColor = ContextCompat.getColor(TagModifyActivity.this, R.color.colorPrimary);
         Button btnColorPicker = (Button) findViewById(R.id.btnColorPicker);
         btnColorPicker.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,7 +48,7 @@ public class ModifyTagActivity extends AppCompatActivity {
 
         String stTagsItemId = String.valueOf(tagItemId);
 
-        SQLiteDatabase db = Functions.accessToDb(ModifyTagActivity.this); // la llamada a la apertura de la base de datos esta en una funcion en la clase Functions
+        SQLiteDatabase db = Functions.accessToDb(TagModifyActivity.this); // la llamada a la apertura de la base de datos esta en una funcion en la clase Functions
         String[] select_params = new String[] {stTagsItemId};
         String sqlSelect = "SELECT * FROM tags WHERE id_tag=?";
         Cursor cursor = db.rawQuery(sqlSelect, select_params);
@@ -76,12 +76,12 @@ public class ModifyTagActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                SQLiteDatabase db = Functions.accessToDb(ModifyTagActivity.this); // la llamada a la apertura de la base de datos esta en una funcion en la clase Functions
+                SQLiteDatabase db = Functions.accessToDb(TagModifyActivity.this); // la llamada a la apertura de la base de datos esta en una funcion en la clase Functions
                 String sqlUpdate = "UPDATE tags SET nombre_tag='" + etNombre.getText() + "' , color_tag="+ mDefaultColor + " WHERE id_tag=" + tagItemId;
                 db.execSQL(sqlUpdate);
                 db.close();
 
-                Toast.makeText(ModifyTagActivity.this, "Update correcto " + tagItemId,Toast.LENGTH_SHORT).show();
+                Toast.makeText(TagModifyActivity.this, "Update correcto " + tagItemId,Toast.LENGTH_SHORT).show();
 
                 Intent TagsMainActivityVars = new Intent(getApplication(), TagsMainActivity.class);
                 startActivity(TagsMainActivityVars);
@@ -110,7 +110,7 @@ public class ModifyTagActivity extends AppCompatActivity {
 
     public void openColorPicker () {
 
-        AmbilWarnaDialog colorPicked = new AmbilWarnaDialog(ModifyTagActivity.this, mDefaultColor, new AmbilWarnaDialog.OnAmbilWarnaListener() {
+        AmbilWarnaDialog colorPicked = new AmbilWarnaDialog(TagModifyActivity.this, mDefaultColor, new AmbilWarnaDialog.OnAmbilWarnaListener() {
 
             @Override
             public void onCancel(AmbilWarnaDialog dialog) {

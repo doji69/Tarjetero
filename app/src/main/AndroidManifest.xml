@@ -24,7 +24,7 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".AddTagActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ModifyTagActivity"
+        <activity android:name=".TagModifyActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".CardsMainActivity"
             android:screenOrientation="portrait"/>

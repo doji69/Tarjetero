@@ -111,7 +111,7 @@ public class TagsMainActivity extends AppCompatActivity {
         if (item.getTitle()=="Modificar") {
 
             //Toast.makeText(TagsMainActivity.this, "Modify tag " + tagItemId, Toast.LENGTH_SHORT).show();
-            Intent modifyTagActivityVars = new Intent(getApplication(), ModifyTagActivity.class);
+            Intent modifyTagActivityVars = new Intent(getApplication(), TagModifyActivity.class);
             modifyTagActivityVars.putExtra("tagItemId", tagItemId);
             //ModifyTagActivityVars.putExtra("tagAction", "modificar");
             startActivity(modifyTagActivityVars);
