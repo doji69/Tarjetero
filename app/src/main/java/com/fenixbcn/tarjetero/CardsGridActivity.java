@@ -1,12 +1,19 @@
 package com.fenixbcn.tarjetero;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.nfc.Tag;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.Toast;
@@ -45,6 +52,8 @@ public class CardsGridActivity extends AppCompatActivity {
         gvPhotos.setAdapter(cardsGridAdapter);
 
         // fin iniciamos la gridview y recuperamos la lista de archivos del tag selecionado
+
+        registerForContextMenu(gvPhotos); // resgistra in context menu a la lista de tags
     }
 
     public void getFilesList () {
@@ -65,6 +74,69 @@ public class CardsGridActivity extends AppCompatActivity {
 
         db.close();
 
+    }
+
+    // menu contextual al mantener clicado cada uno de los items de la lista
+
+    @Override
+    public void onCreateContextMenu(ContextMenu cmTags, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(cmTags, v, menuInfo);
+
+        cmTags.setHeaderTitle("Acciones");
+        cmTags.add(0, v.getId(),0, "Ver");
+        cmTags.add(0, v.getId(),0, "Modificar");
+        cmTags.add(0, v.getId(),0, "Eliminar");
+        cmTags.add(0, v.getId(),0, "Cancelar");
 
     }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+
+        final AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        final int cardItemIdSel = (int)info.position; // obtiene la posicion del listitem
+        final File cardItemId = alTagsSelectedFiles.get(cardItemIdSel); // obtiene el id del tag clicado
+
+        if (item.getTitle()=="Ver") {
+
+            Toast.makeText(CardsGridActivity.this, "Show card " + cardItemId, Toast.LENGTH_SHORT).show();
+
+
+        } else if (item.getTitle()=="Modificar") {
+
+            Toast.makeText(CardsGridActivity.this, "Modify card " + cardItemId, Toast.LENGTH_SHORT).show();
+
+
+        } else if (item.getTitle()=="Eliminar") {
+
+            Toast.makeText(CardsGridActivity.this, "Delete card " + cardItemId, Toast.LENGTH_SHORT).show();
+
+            /*AlertDialog.Builder adDeleteBuilder = new AlertDialog.Builder(this);
+            adDeleteBuilder.setTitle("Borrado de Cards");
+            adDeleteBuilder.setMessage("Desea borrar este Card?");
+            adDeleteBuilder.setPositiveButton("si", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+
+                }
+            });
+
+            adDeleteBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.cancel();
+
+                }
+            });
+
+            AlertDialog adDelete = adDeleteBuilder.create();
+            adDelete.show();*/
+
+        }
+
+        return true;
+    }
+
+    // fin menu contextual al mantener clicado cada uno de los items de la lista
 }

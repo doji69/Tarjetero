@@ -110,7 +110,7 @@ public class TagsMainActivity extends AppCompatActivity {
 
         if (item.getTitle()=="Modificar") {
 
-            Toast.makeText(TagsMainActivity.this, "Modify tag " + tagItemId, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(TagsMainActivity.this, "Modify tag " + tagItemId, Toast.LENGTH_SHORT).show();
             Intent modifyTagActivityVars = new Intent(getApplication(), ModifyTagActivity.class);
             modifyTagActivityVars.putExtra("tagItemId", tagItemId);
             //ModifyTagActivityVars.putExtra("tagAction", "modificar");
@@ -118,7 +118,7 @@ public class TagsMainActivity extends AppCompatActivity {
 
         } else if (item.getTitle()=="Eliminar") {
 
-            Toast.makeText(TagsMainActivity.this, "Delete tag " + tagItemId, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(TagsMainActivity.this, "Delete tag " + tagItemId, Toast.LENGTH_SHORT).show();
             AlertDialog.Builder adDeleteBuilder = new AlertDialog.Builder(this);
             adDeleteBuilder.setTitle("Borrado de tags");
             adDeleteBuilder.setMessage("Desea borrar este tag?");
