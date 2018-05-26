@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,14 +21,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".TagsMainActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".TagAddActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".TagModifyActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".CardsMainActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".TagsMainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".TagAddActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".TagModifyActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".CardsMainActivity"
+            android:screenOrientation="portrait" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -39,8 +44,10 @@
                 android:resource="@xml/filepaths" />
         </provider>
 
-        <activity android:name=".CardsGridActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".CardsGridActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".CardViewActivity"></activity>
     </application>
 
 </manifest>

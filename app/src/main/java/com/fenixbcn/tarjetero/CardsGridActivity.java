@@ -36,8 +36,8 @@ public class CardsGridActivity extends AppCompatActivity {
 
         // recuperamos las variables pasadas en el Intent
 
-        Bundle AddTagActivityVars = getIntent().getExtras();
-        tagItemId = AddTagActivityVars.getInt("tagItemId", -1);
+        Bundle cardsGridActivityVars = getIntent().getExtras();
+        tagItemId = cardsGridActivityVars.getInt("tagItemId", -1);
 
         // fin recuperamos las variables pasadas en el Intent
 
@@ -46,7 +46,7 @@ public class CardsGridActivity extends AppCompatActivity {
         CardsGridAdapter cardsGridAdapter;
 
         getFilesList (); // esta funcion recupera de la base de datos la ruta de las fotos que estan en el tag clicado y lo guarda en un arraylist de files
-        Log.d(TAG, "lista de fotos "+ alTagsSelectedFiles);
+        //Log.d(TAG, "lista de fotos "+ alTagsSelectedFiles);
 
         cardsGridAdapter = new CardsGridAdapter(this, alTagsSelectedFiles);
         gvPhotos.setAdapter(cardsGridAdapter);
@@ -54,6 +54,20 @@ public class CardsGridActivity extends AppCompatActivity {
         // fin iniciamos la gridview y recuperamos la lista de archivos del tag selecionado
 
         registerForContextMenu(gvPhotos); // resgistra in context menu a la lista de tags
+
+        gvPhotos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                File cardItemId = alTagsSelectedFiles.get(i); // obtiene la ruta del tag clicado
+
+                Intent cardsGridActivityVars = new Intent(getApplication(), CardViewActivity.class);
+                cardsGridActivityVars.putExtra("card name", cardItemId.toString() );
+                startActivity(cardsGridActivityVars);
+
+            }
+        });
     }
 
     public void getFilesList () {
@@ -83,7 +97,6 @@ public class CardsGridActivity extends AppCompatActivity {
         super.onCreateContextMenu(cmTags, v, menuInfo);
 
         cmTags.setHeaderTitle("Acciones");
-        cmTags.add(0, v.getId(),0, "Ver");
         cmTags.add(0, v.getId(),0, "Modificar");
         cmTags.add(0, v.getId(),0, "Eliminar");
         cmTags.add(0, v.getId(),0, "Cancelar");
@@ -95,29 +108,30 @@ public class CardsGridActivity extends AppCompatActivity {
 
         final AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         final int cardItemIdSel = (int)info.position; // obtiene la posicion del listitem
-        final File cardItemId = alTagsSelectedFiles.get(cardItemIdSel); // obtiene el id del tag clicado
+        final File cardItemId = alTagsSelectedFiles.get(cardItemIdSel); // obtiene la ruta del tag clicado
 
-        if (item.getTitle()=="Ver") {
-
-            Toast.makeText(CardsGridActivity.this, "Show card " + cardItemId, Toast.LENGTH_SHORT).show();
-
-
-        } else if (item.getTitle()=="Modificar") {
+        if (item.getTitle()=="Modificar") {
 
             Toast.makeText(CardsGridActivity.this, "Modify card " + cardItemId, Toast.LENGTH_SHORT).show();
 
 
         } else if (item.getTitle()=="Eliminar") {
 
-            Toast.makeText(CardsGridActivity.this, "Delete card " + cardItemId, Toast.LENGTH_SHORT).show();
-
-            /*AlertDialog.Builder adDeleteBuilder = new AlertDialog.Builder(this);
+            //Toast.makeText(CardsGridActivity.this, "Delete card " + cardItemId, Toast.LENGTH_SHORT).show();
+            AlertDialog.Builder adDeleteBuilder = new AlertDialog.Builder(this);
             adDeleteBuilder.setTitle("Borrado de Cards");
             adDeleteBuilder.setMessage("Desea borrar este Card?");
             adDeleteBuilder.setPositiveButton("si", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
+                    SQLiteDatabase db = Functions.accessToDb(CardsGridActivity.this); // la llamada a la apertura de la base de datos esta en una funcion en la clase Functions
+                    String sqlDelete = "DELETE FROM cards WHERE nombre_car='" + cardItemId + "'";
+                    db.execSQL(sqlDelete);
+                    db.close();
 
+                    Toast.makeText(CardsGridActivity.this, "Delete correcto",Toast.LENGTH_SHORT).show();
+                    finish();
+                    startActivity(getIntent());
 
                 }
             });
@@ -131,7 +145,7 @@ public class CardsGridActivity extends AppCompatActivity {
             });
 
             AlertDialog adDelete = adDeleteBuilder.create();
-            adDelete.show();*/
+            adDelete.show();
 
         }
 

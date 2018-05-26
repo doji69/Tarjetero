@@ -106,7 +106,7 @@ public class CardsMainActivity extends AppCompatActivity {
 
                 id_tag = lTagsSpinner.get(i).getId_tag();
 
-                Toast.makeText(CardsMainActivity.this, id_tag + " " + imageFullPath, Toast.LENGTH_LONG).show();
+                //Toast.makeText(CardsMainActivity.this, id_tag + " " + imageFullPath, Toast.LENGTH_LONG).show();
 
             }
 
