@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import yuku.ambilwarna.AmbilWarnaDialog;
 
-public class AddTagActivity extends AppCompatActivity {
+public class TagAddActivity extends AppCompatActivity {
 
     TextView tvColorSelected;
     EditText etNombre;
@@ -51,7 +51,7 @@ public class AddTagActivity extends AppCompatActivity {
         // variables y control para el selector de color
 
         tvColorSelected = (TextView) findViewById(R.id.tvColorSelected);
-        mDefaultColor = ContextCompat.getColor(AddTagActivity.this, R.color.colorPrimary);
+        mDefaultColor = ContextCompat.getColor(TagAddActivity.this, R.color.colorPrimary);
         Button btnColorPicker = (Button) findViewById(R.id.btnColorPicker);
         btnColorPicker.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,13 +71,13 @@ public class AddTagActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                SQLiteDatabase db = Functions.accessToDb(AddTagActivity.this); // la llamada a la apertura de la base de datos esta en una funcion en la clase Functions
+                SQLiteDatabase db = Functions.accessToDb(TagAddActivity.this); // la llamada a la apertura de la base de datos esta en una funcion en la clase Functions
 
                 String sqlInsert = "INSERT INTO tags (nombre_tag, color_tag) values ('"+ etNombre.getText()+"', "+ mDefaultColor+")";
                 db.execSQL(sqlInsert);
                 db.close();
 
-                Toast.makeText(AddTagActivity.this, "Insert correcto",Toast.LENGTH_SHORT).show();
+                Toast.makeText(TagAddActivity.this, "Insert correcto",Toast.LENGTH_SHORT).show();
 
                 Intent TagsMainActivityVars = new Intent(getApplication(), TagsMainActivity.class);
                 startActivity(TagsMainActivityVars);
@@ -105,7 +105,7 @@ public class AddTagActivity extends AppCompatActivity {
 
     public void openColorPicker () {
 
-        AmbilWarnaDialog colorPicked = new AmbilWarnaDialog(AddTagActivity.this, mDefaultColor, new AmbilWarnaDialog.OnAmbilWarnaListener() {
+        AmbilWarnaDialog colorPicked = new AmbilWarnaDialog(TagAddActivity.this, mDefaultColor, new AmbilWarnaDialog.OnAmbilWarnaListener() {
 
             @Override
             public void onCancel(AmbilWarnaDialog dialog) {

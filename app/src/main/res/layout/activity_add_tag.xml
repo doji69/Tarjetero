@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="5dp"
-    tools:context=".AddTagActivity">
+    tools:context=".TagAddActivity">
 
     <TextView
         android:id="@+id/tvTitle"

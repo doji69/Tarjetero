@@ -22,7 +22,7 @@
         </activity>
         <activity android:name=".TagsMainActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".AddTagActivity"
+        <activity android:name=".TagAddActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".TagModifyActivity"
             android:screenOrientation="portrait"/>

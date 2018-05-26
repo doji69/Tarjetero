@@ -76,7 +76,7 @@ public class TagsMainActivity extends AppCompatActivity {
 
             case R.id.iAddTag:
                 //Toast.makeText(TagsMainActivity.this, "Add Tag", Toast.LENGTH_SHORT).show();
-                Intent addTagsActivityVars = new Intent(getApplication(), AddTagActivity.class);
+                Intent addTagsActivityVars = new Intent(getApplication(), TagAddActivity.class);
                 startActivity(addTagsActivityVars);
                 return true;
 
