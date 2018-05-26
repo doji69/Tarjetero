@@ -305,4 +305,9 @@ public class CardsMainActivity extends AppCompatActivity {
         takedPhoto.setImageBitmap(rotatedBitmap);
 
     }
+
+    @Override
+    public void onBackPressed() { // anula el back button del despositivo
+
+    }
 }

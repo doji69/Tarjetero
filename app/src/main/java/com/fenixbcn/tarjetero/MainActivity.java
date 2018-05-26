@@ -106,4 +106,9 @@ public class MainActivity extends AppCompatActivity {
         SQLiteDatabase db = Functions.accessToDb(MainActivity.this); // la llamada a la apertura de la base de datos esta en una funcion en la clase functions
         db.close();
     }
+
+    @Override
+    public void onBackPressed() { // anula el back button del despositivo
+
+    }
 }

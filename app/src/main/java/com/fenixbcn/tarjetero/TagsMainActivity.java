@@ -76,8 +76,8 @@ public class TagsMainActivity extends AppCompatActivity {
 
             case R.id.iAddTag:
                 //Toast.makeText(TagsMainActivity.this, "Add Tag", Toast.LENGTH_SHORT).show();
-                Intent addTagsActivityVars = new Intent(getApplication(), TagAddActivity.class);
-                startActivity(addTagsActivityVars);
+                Intent tagsAddActivityVars = new Intent(getApplication(), TagAddActivity.class);
+                startActivity(tagsAddActivityVars);
                 return true;
 
             default:
@@ -111,10 +111,10 @@ public class TagsMainActivity extends AppCompatActivity {
         if (item.getTitle()=="Modificar") {
 
             //Toast.makeText(TagsMainActivity.this, "Modify tag " + tagItemId, Toast.LENGTH_SHORT).show();
-            Intent modifyTagActivityVars = new Intent(getApplication(), TagModifyActivity.class);
-            modifyTagActivityVars.putExtra("tagItemId", tagItemId);
+            Intent tagModifyActivityVars = new Intent(getApplication(), TagModifyActivity.class);
+            tagModifyActivityVars.putExtra("tagItemId", tagItemId);
             //ModifyTagActivityVars.putExtra("tagAction", "modificar");
-            startActivity(modifyTagActivityVars);
+            startActivity(tagModifyActivityVars);
 
         } else if (item.getTitle()=="Eliminar") {
 
@@ -156,4 +156,9 @@ public class TagsMainActivity extends AppCompatActivity {
     }
 
     // fin menu contextual al mantener clicado cada uno de los items de la lista
+
+    @Override
+    public void onBackPressed() {
+
+    }
 }

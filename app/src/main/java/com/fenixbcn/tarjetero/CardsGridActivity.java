@@ -139,4 +139,9 @@ public class CardsGridActivity extends AppCompatActivity {
     }
 
     // fin menu contextual al mantener clicado cada uno de los items de la lista
+
+    @Override
+    public void onBackPressed() { // anula el back button del despositivo
+
+    }
 }

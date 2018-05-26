@@ -122,4 +122,10 @@ public class TagAddActivity extends AppCompatActivity {
         });
         colorPicked.show();
     }
+
+    @Override
+    public void onBackPressed() { // anula el back button del despositivo
+
+    }
+
 }
