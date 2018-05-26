@@ -19,27 +19,32 @@ public class CardsGridActivity extends AppCompatActivity {
     private static final String TAG = "CardsGridActivity";
     int tagItemId;
     GridView gvPhotos;
-    ArrayList<String> alTagsSelected = new ArrayList<>();
+    //ArrayList<String> alTagsSelected = new ArrayList<>();
+    ArrayList<File> alTagsSelectedFiles = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cards_grid);
 
+        // recuperamos las variables pasadas en el Intent
+
         Bundle AddTagActivityVars = getIntent().getExtras();
         tagItemId = AddTagActivityVars.getInt("tagItemId", -1);
 
-        Toast.makeText(CardsGridActivity.this, "el id pasado es " + tagItemId, Toast.LENGTH_SHORT).show();
+        // fin recuperamos las variables pasadas en el Intent
 
+        // iniciamos la gridview y recuperamos la lista de archivos del tag selecionado
         gvPhotos = (GridView) findViewById(R.id.gvPhotos);
+        CardsGridAdapter cardsGridAdapter;
 
-        getFilesList ();
-        Log.d(TAG, "lista de fotos "+ alTagsSelected );
+        getFilesList (); // esta funcion recupera de la base de datos la ruta de las fotos que estan en el tag clicado y lo guarda en un arraylist de files
+        Log.d(TAG, "lista de fotos "+ alTagsSelectedFiles);
 
-        ArrayAdapter<String> arrayListArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, alTagsSelected);
-        gvPhotos.setAdapter(arrayListArrayAdapter);
+        cardsGridAdapter = new CardsGridAdapter(this, alTagsSelectedFiles);
+        gvPhotos.setAdapter(cardsGridAdapter);
 
-
+        // fin iniciamos la gridview y recuperamos la lista de archivos del tag selecionado
     }
 
     public void getFilesList () {
@@ -53,7 +58,7 @@ public class CardsGridActivity extends AppCompatActivity {
 
             do {
 
-                alTagsSelected.add(cursor.getString(1));
+                alTagsSelectedFiles.add(new File(cursor.getString(1)));
 
             } while (cursor.moveToNext());
         }
