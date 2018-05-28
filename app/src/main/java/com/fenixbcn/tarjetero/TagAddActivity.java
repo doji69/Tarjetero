@@ -5,6 +5,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +19,7 @@ public class TagAddActivity extends AppCompatActivity {
 
     TextView tvColorSelected;
     EditText etNombre;
+    Button btnAddTag;
     int mDefaultColor, tagItemId;
     String tagAction;
 
@@ -25,6 +28,8 @@ public class TagAddActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_tag);
+
+        getSupportActionBar().hide(); // esconde el action bar en esta activity
 
         // comprobamos si se han pasado variables o no para la nueva actividad
         /*
@@ -65,7 +70,36 @@ public class TagAddActivity extends AppCompatActivity {
         // variables y control del insert en la base de datos
 
         etNombre = (EditText) findViewById(R.id.etNombre);
-        Button btnAddTag = (Button) findViewById(R.id.btnSaveTag);
+        btnAddTag = (Button) findViewById(R.id.btnSaveTag);
+
+        etNombre.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                if (!etNombre.getText().toString().matches("")) {
+
+                    btnAddTag.setEnabled(true);
+
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+                if (etNombre.getText().toString().matches("")) {
+
+                    btnAddTag.setEnabled(false);
+
+                }
+
+            }
+        });
 
         btnAddTag.setOnClickListener(new View.OnClickListener() {
             @Override
