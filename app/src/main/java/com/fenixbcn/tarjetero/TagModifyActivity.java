@@ -43,8 +43,8 @@ public class TagModifyActivity extends AppCompatActivity {
         // de parametro en el Intent
 
         etNombre = (EditText) findViewById(R.id.etNombre);
-        Bundle AddTagActivityVars = getIntent().getExtras();
-        tagItemId = AddTagActivityVars.getInt("tagItemId", -1);
+        Bundle tagAddActivityVars = getIntent().getExtras();
+        tagItemId = tagAddActivityVars.getInt("tagItemId", -1);
 
         String stTagsItemId = String.valueOf(tagItemId);
 

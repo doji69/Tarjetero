@@ -28,6 +28,8 @@ public class TagsMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tags_main);
 
+        getSupportActionBar().setTitle(""); // borra el titulo en el action bar
+
         // control del listado de tags y select que lo rellena
 
         lvListaTags = (ListView) findViewById(R.id.lvListaTags);
