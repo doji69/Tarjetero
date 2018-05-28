@@ -72,7 +72,7 @@ public class TagAddActivity extends AppCompatActivity {
         etNombre = (EditText) findViewById(R.id.etNombre);
         btnAddTag = (Button) findViewById(R.id.btnSaveTag);
 
-        etNombre.addTextChangedListener(new TextWatcher() {
+        etNombre.addTextChangedListener(new TextWatcher() { // control del campo vacio
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
