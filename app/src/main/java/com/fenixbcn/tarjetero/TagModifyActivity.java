@@ -98,8 +98,8 @@ public class TagModifyActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent TagsMainActivityVars = new Intent(getApplication(), TagsMainActivity.class);
-                startActivity(TagsMainActivityVars);
+                Intent tagsMainActivityVars = new Intent(getApplication(), TagsMainActivity.class);
+                startActivity(tagsMainActivityVars);
 
             }
         });

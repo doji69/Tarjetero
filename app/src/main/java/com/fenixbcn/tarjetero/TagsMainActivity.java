@@ -13,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -28,7 +29,7 @@ public class TagsMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tags_main);
 
-        getSupportActionBar().setTitle(""); // borra el titulo en el action bar
+        getSupportActionBar().hide(); // esconde el action bar en esta activity
 
         // control del listado de tags y select que lo rellena
 
@@ -59,9 +60,36 @@ public class TagsMainActivity extends AppCompatActivity {
 
         registerForContextMenu(lvListaTags); // resgistra in context menu a la lista de tags
 
+        // control botton de añadir un tag
+        ImageButton btnAddTag = (ImageButton) findViewById(R.id.btnAddTag);
+        btnAddTag.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent tagsAddActivityVars = new Intent(getApplication(), TagAddActivity.class);
+                startActivity(tagsAddActivityVars);
+
+            }
+        });
+        // fin control botton de añadir un tag
+
+        // control botton de back
+        ImageButton btnBack = (ImageButton) findViewById(R.id.btnBack);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent MainActivityVars = new Intent(getApplication(), MainActivity.class);
+                startActivity(MainActivityVars);
+
+            }
+        });
+        // fin control botton de back
+
     }
 
     // Control del menu del action bar
+    /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -87,7 +115,7 @@ public class TagsMainActivity extends AppCompatActivity {
         }
 
     }
-
+    */
     // fin Control del menu del action bar
 
     // menu contextual al mantener clicado cada uno de los items de la lista
