@@ -10,6 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -25,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        getSupportActionBar().setTitle(""); // borra el titulo en el action bar
+        getSupportActionBar().hide(); // esconde el action bar en esta activity
         startDataBase(); // arrancamos la base de datos
 
         // control y mostrado de la lista en el main principal donde poder ver los tags y cuantas cards hay en cada tag
@@ -65,9 +66,32 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button btnTags = (Button) findViewById(R.id.btnTags);
+        btnTags.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent TagsMainActivityVars = new Intent(getApplication(), TagsMainActivity.class);
+                startActivity(TagsMainActivityVars);
+
+            }
+        });
+
+        Button btnCards = (Button) findViewById(R.id.btnCards);
+        btnCards.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent CardsMainActivityVars = new Intent(getApplication(), CardsMainActivity.class);
+                startActivity(CardsMainActivityVars);
+
+            }
+        });
+
     }
 
     // Control del menu del action bar
+    /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -98,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-
+    */
     // fin Control del menu del action bar
 
     private void startDataBase () {

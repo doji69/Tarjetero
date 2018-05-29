@@ -47,6 +47,7 @@ public class CardsMainActivity extends AppCompatActivity {
     int id_tag;
 
     private Button btnSaveCard;
+    private Button btnCancelCard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,6 +118,19 @@ public class CardsMainActivity extends AppCompatActivity {
         });
         // fin rellenado del spinner con los tags de la base de datos
 
+        // control boton de cancel
+
+        btnCancelCard = (Button) findViewById(R.id.btnCancelCard);
+        btnCancelCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent MainActivityVars = new Intent(getApplication(), MainActivity.class);
+                startActivity(MainActivityVars);
+
+            }
+        });
+        // fin control boton de cancel
 
         // control boton de guardado de la foto con el tag
 

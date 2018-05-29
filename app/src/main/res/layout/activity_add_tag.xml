@@ -15,7 +15,7 @@
         android:layout_marginTop="16dp"
         android:text="Añadir Tag"
         android:textAlignment="center"
-        android:textSize="30dp"
+        android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -26,7 +26,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text="Nombre"
-        android:textSize="24dp"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
 
@@ -36,8 +36,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:inputType="text"
         android:hint="Nombre"
-        android:textSize="24dp"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvNombre" />
 
@@ -48,7 +49,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Color"
-        android:textSize="24dp"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etNombre" />
 
@@ -59,7 +60,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Color"
-        android:textSize="24dp"
+        android:textSize="24sp"
         android:background="@color/colorPrimary"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvColor" />
@@ -68,10 +69,10 @@
         android:id="@+id/btnColorPicker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
         android:text="Color Picker"
-        android:textSize="24dp"
-        app:layout_constraintLeft_toRightOf="@id/tvColorSelected"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@id/tvColorSelected"
         app:layout_constraintTop_toBottomOf="@+id/tvColor" />
 
     <Button
@@ -81,7 +82,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
         android:text="Guardar"
-        android:textSize="24dp"
+        android:textSize="24sp"
         android:enabled="false"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnColorPicker" />
@@ -91,11 +92,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginLeft="16dp"
         android:text="Cancelar"
-        android:textSize="24dp"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/btnSaveTag"
         app:layout_constraintTop_toTopOf="@id/btnSaveTag" />
 
 
