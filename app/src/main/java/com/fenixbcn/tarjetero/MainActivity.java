@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        getSupportActionBar().hide(); // esconde el action bar en esta activity
         startDataBase(); // arrancamos la base de datos
 
         // control y mostrado de la lista en el main principal donde poder ver los tags y cuantas cards hay en cada tag

@@ -28,8 +28,6 @@ public class TagModifyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modify_tag);
 
-        getSupportActionBar().hide(); // esconde el action bar en esta activity
-
         // variables y control para el selector de color
 
         tvColorSelected = (TextView) findViewById(R.id.tvColorSelected);

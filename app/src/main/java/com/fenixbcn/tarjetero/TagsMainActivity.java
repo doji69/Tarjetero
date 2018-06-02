@@ -29,8 +29,6 @@ public class TagsMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tags_main);
 
-        getSupportActionBar().hide(); // esconde el action bar en esta activity
-
         // control del listado de tags y select que lo rellena
 
         lvListaTags = (ListView) findViewById(R.id.lvListaTags);
