@@ -21,6 +21,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -47,7 +48,7 @@ public class CardsMainActivity extends AppCompatActivity {
     int id_tag;
 
     private Button btnSaveCard;
-    private Button btnCancelCard;
+    private ImageButton btnCancelCard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,7 +121,7 @@ public class CardsMainActivity extends AppCompatActivity {
 
         // control boton de cancel
 
-        btnCancelCard = (Button) findViewById(R.id.btnCancelCard);
+        btnCancelCard = (ImageButton) findViewById(R.id.btnCancelCard);
         btnCancelCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

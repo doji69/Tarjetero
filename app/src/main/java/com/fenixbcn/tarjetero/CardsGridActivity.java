@@ -16,6 +16,7 @@ import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import java.io.File;
@@ -36,7 +37,7 @@ public class CardsGridActivity extends AppCompatActivity {
 
         // recuperamos las variables pasadas en el Intent
 
-        Bundle cardsGridActivityVars = getIntent().getExtras();
+        final Bundle cardsGridActivityVars = getIntent().getExtras();
         tagItemId = cardsGridActivityVars.getInt("tagItemId", -1);
 
         // fin recuperamos las variables pasadas en el Intent
@@ -62,12 +63,27 @@ public class CardsGridActivity extends AppCompatActivity {
 
                 File cardItemId = alTagsSelectedFiles.get(i); // obtiene la ruta del tag clicado
 
-                Intent cardsGridActivityVars = new Intent(getApplication(), CardViewActivity.class);
-                cardsGridActivityVars.putExtra("card name", cardItemId.toString() );
-                startActivity(cardsGridActivityVars);
+                Intent cardsViewActivityVars = new Intent(getApplication(), CardViewActivity.class);
+                cardsViewActivityVars.putExtra("card name", cardItemId.toString() );
+                cardsViewActivityVars.putExtra("tagItemId", tagItemId);
+                startActivity(cardsViewActivityVars);
 
             }
         });
+
+        // control boton de cancel
+
+        ImageButton btnCancelCard = (ImageButton) findViewById(R.id.btnCancelCard);
+        btnCancelCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent MainActivityVars = new Intent(getApplication(), MainActivity.class);
+                startActivity(MainActivityVars);
+
+            }
+        });
+        // fin control boton de cancel
     }
 
     public void getFilesList () {
