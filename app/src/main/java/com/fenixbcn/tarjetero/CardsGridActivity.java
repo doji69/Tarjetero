@@ -128,8 +128,10 @@ public class CardsGridActivity extends AppCompatActivity {
 
         if (item.getTitle()=="Modificar") {
 
-            Toast.makeText(CardsGridActivity.this, "Modify card " + cardItemId, Toast.LENGTH_SHORT).show();
-
+            Intent cardsModifyActivityVars = new Intent(getApplication(), CardModifyActivity.class);
+            cardsModifyActivityVars.putExtra("card name", cardItemId.toString() );
+            cardsModifyActivityVars.putExtra("tagItemId", tagItemId);
+            startActivity(cardsModifyActivityVars);
 
         } else if (item.getTitle()=="Eliminar") {
 

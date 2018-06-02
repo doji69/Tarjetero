@@ -47,7 +47,8 @@
         <activity
             android:name=".CardsGridActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".CardViewActivity"></activity>
+        <activity android:name=".CardViewActivity" />
+        <activity android:name=".CardModifyActivity"></activity>
     </application>
 
 </manifest>
