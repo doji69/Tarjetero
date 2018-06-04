@@ -67,7 +67,7 @@ public class CardModifyActivity extends AppCompatActivity {
 
         TagsSpinnerAdapter tagsSpinnerAdapter = new TagsSpinnerAdapter(this, R.layout.spinner_single_tag, lTagsSpinner);
         sTags.setAdapter(tagsSpinnerAdapter);
-        Log.d(TAG, "el cardItemIdSel "+ cardItemIdSel );
+        //Log.d(TAG, "el cardItemIdSel "+ cardItemIdSel );
         sTags.setSelection(cardItemIdSel);
 
         sTags.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -115,8 +115,8 @@ public class CardModifyActivity extends AppCompatActivity {
                 db.execSQL(sqlUpdate);
                 db.close();
 
-                Log.d(TAG, "la sentencia update es " + sqlUpdate);
-                //Toast.makeText(CardModifyActivity.this, "Update correcto" + sqlUpdate,Toast.LENGTH_LONG).show();
+                //Log.d(TAG, "la sentencia update es " + sqlUpdate);
+                Toast.makeText(CardModifyActivity.this, "Update correcto" ,Toast.LENGTH_LONG).show();
 
                 Intent MainActivityVars = new Intent(getApplication(), MainActivity.class);
                 startActivity(MainActivityVars);
