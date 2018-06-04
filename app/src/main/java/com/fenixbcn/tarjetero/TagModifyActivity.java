@@ -113,7 +113,7 @@ public class TagModifyActivity extends AppCompatActivity {
                 db.execSQL(sqlUpdate);
                 db.close();
 
-                Toast.makeText(TagModifyActivity.this, "Update correcto " + tagItemId,Toast.LENGTH_SHORT).show();
+                Toast.makeText(TagModifyActivity.this, "Update correcto ",Toast.LENGTH_SHORT).show();
 
                 Intent TagsMainActivityVars = new Intent(getApplication(), TagsMainActivity.class);
                 startActivity(TagsMainActivityVars);

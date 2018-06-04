@@ -29,8 +29,6 @@ public class TagAddActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_tag);
 
-        getSupportActionBar().hide(); // esconde el action bar en esta activity
-
         // comprobamos si se han pasado variables o no para la nueva actividad
         /*
         Intent AddTagActivityIntent = getIntent();

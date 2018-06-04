@@ -58,7 +58,7 @@ public class TagsAdapter extends ArrayAdapter {
         int numCards=0;
         SQLiteDatabase db = Functions.accessToDb(mContext); // la llamada a la apertura de la base de datos esta en una funcion en la clase Functions
         String[] select_params = new String[] {String.valueOf(mNumCards)};
-        String selectNumCards = "SELECT count(*) from cards where id_tag=?";
+        String selectNumCards = "SELECT Count(*) from cards where id_tag=?";
         Cursor cursor = db.rawQuery(selectNumCards, select_params);
 
         if (cursor.moveToFirst()) {
