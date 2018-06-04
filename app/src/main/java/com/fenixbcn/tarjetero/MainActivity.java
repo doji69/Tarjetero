@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent cardsGridActivityVars = new Intent(getApplication(), CardsGridActivity.class);
                 cardsGridActivityVars.putExtra("tagItemId", alMainTags.get(i).getTagId());
+                cardsGridActivityVars.putExtra("tagItemName", alMainTags.get(i).getNombreTag());
                 startActivity(cardsGridActivityVars);
 
             }

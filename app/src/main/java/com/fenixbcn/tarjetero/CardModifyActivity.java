@@ -111,7 +111,7 @@ public class CardModifyActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 SQLiteDatabase db = Functions.accessToDb(CardModifyActivity.this); // la llamada a la apertura de la base de datos esta en una funcion en la clase Functions
-                String sqlUpdate = "UPDATE cards SET id_tag = " + id_tag + " WHERE nombre_car = '" + cardSelected + "'";
+                String sqlUpdate = "UPDATE cards SET id_tag = " + id_tag + " WHERE nombre_card = '" + cardSelected + "'";
                 db.execSQL(sqlUpdate);
                 db.close();
 

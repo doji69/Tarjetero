@@ -143,7 +143,7 @@ public class CardsMainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 SQLiteDatabase db = Functions.accessToDb(CardsMainActivity.this); // la llamada a la apertura de la base de datos esta en una funcion en la clase Functions
-                String sqlInsert = "INSERT INTO cards (nombre_car, id_tag) values ('" + imageFullPath + "', " + id_tag + ")";
+                String sqlInsert = "INSERT INTO cards (nombre_card, id_tag) values ('" + imageFullPath + "', " + id_tag + ")";
                 db.execSQL(sqlInsert);
                 db.close();
 

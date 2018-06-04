@@ -17,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -26,6 +27,7 @@ public class CardsGridActivity extends AppCompatActivity {
 
     private static final String TAG = "CardsGridActivity";
     int tagItemId;
+    String tagItemName;
     GridView gvPhotos;
     //ArrayList<String> alTagsSelected = new ArrayList<>();
     ArrayList<File> alTagsSelectedFiles = new ArrayList<>();
@@ -39,6 +41,7 @@ public class CardsGridActivity extends AppCompatActivity {
 
         final Bundle cardsGridActivityVars = getIntent().getExtras();
         tagItemId = cardsGridActivityVars.getInt("tagItemId", -1);
+        tagItemName = cardsGridActivityVars.getString("tagItemName");
 
         // fin recuperamos las variables pasadas en el Intent
 
@@ -48,6 +51,8 @@ public class CardsGridActivity extends AppCompatActivity {
 
         getFilesList (); // esta funcion recupera de la base de datos la ruta de las fotos que estan en el tag clicado y lo guarda en un arraylist de files
         //Log.d(TAG, "lista de fotos "+ alTagsSelectedFiles);
+        TextView tvCardsGridTitle = (TextView) findViewById(R.id.tvCardsGridTitle);
+        tvCardsGridTitle.setText(tagItemName);
 
         cardsGridAdapter = new CardsGridAdapter(this, alTagsSelectedFiles);
         gvPhotos.setAdapter(cardsGridAdapter);
@@ -144,9 +149,10 @@ public class CardsGridActivity extends AppCompatActivity {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     SQLiteDatabase db = Functions.accessToDb(CardsGridActivity.this); // la llamada a la apertura de la base de datos esta en una funcion en la clase Functions
-                    String sqlDelete = "DELETE FROM cards WHERE nombre_car='" + cardItemId + "'";
+                    String sqlDelete = "DELETE FROM cards WHERE nombre_card='" + cardItemId + "'";
                     db.execSQL(sqlDelete);
                     db.close();
+                    cardItemId.delete();
 
                     Toast.makeText(CardsGridActivity.this, "Delete correcto",Toast.LENGTH_SHORT).show();
                     finish();
