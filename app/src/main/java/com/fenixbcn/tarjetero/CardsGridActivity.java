@@ -131,6 +131,7 @@ public class CardsGridActivity extends AppCompatActivity {
             Intent cardsModifyActivityVars = new Intent(getApplication(), CardModifyActivity.class);
             cardsModifyActivityVars.putExtra("card name", cardItemId.toString() );
             cardsModifyActivityVars.putExtra("tagItemId", tagItemId);
+            cardsModifyActivityVars.putExtra("cardItemIdSel", cardItemIdSel);
             startActivity(cardsModifyActivityVars);
 
         } else if (item.getTitle()=="Eliminar") {
