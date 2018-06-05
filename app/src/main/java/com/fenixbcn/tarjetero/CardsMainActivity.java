@@ -281,9 +281,8 @@ public class CardsMainActivity extends AppCompatActivity {
         int cameraImageWidth = bmOptions.outWidth;
         int cameraImageHeight = bmOptions.outHeight;
 
-        int scaleFactor = 0;
-        scaleFactor = Math.min(cameraImageWidth/targetImageViewWidth, cameraImageHeight/targetImageViewHeight);
-        bmOptions.inSampleSize = 2;
+        int scaleFactor = Math.min(cameraImageWidth/targetImageViewWidth, cameraImageHeight/targetImageViewHeight);
+        bmOptions.inSampleSize = scaleFactor;
         bmOptions.inJustDecodeBounds = false;
         Bitmap photoReducedSize = BitmapFactory.decodeFile(imageFullPath, bmOptions);
         takedPhoto.setImageBitmap(photoReducedSize);
