@@ -208,6 +208,8 @@ public class CardsMainActivity extends AppCompatActivity {
 
             rotateImage(setReducedImageSize());
             Functions.deleteCamFile(getContentResolver());
+            Intent refreshGallery = new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse("file://" + Environment.getExternalStorageDirectory()));
+            startActivity(refreshGallery);
             btnSaveCard.setEnabled(true); // activamos el boton cuando hay foto
         }
     }
