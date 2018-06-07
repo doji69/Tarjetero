@@ -14,7 +14,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CardsGridAdapter  extends ArrayAdapter {
+public class CardsGridAdapter extends ArrayAdapter {
 
     private Context mContext;
     private List<File> mListaCardsFiles = new ArrayList<>();
@@ -51,8 +51,10 @@ public class CardsGridAdapter  extends ArrayAdapter {
         }
 
         ImageView ivSingleImage = (ImageView) vista.findViewById(R.id.ivSingleCard);
+
         ivSingleImage.setImageURI(Uri.parse(getItem(position).toString()));
 
         return vista;
     }
+
 }

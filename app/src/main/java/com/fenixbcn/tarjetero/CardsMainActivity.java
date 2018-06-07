@@ -27,7 +27,10 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -204,7 +207,7 @@ public class CardsMainActivity extends AppCompatActivity {
         if (requestCode == camPermision && resultCode == RESULT_OK) {
 
             rotateImage(setReducedImageSize());
-            deleteCamFile();
+            Functions.deleteCamFile(getContentResolver());
             btnSaveCard.setEnabled(true); // activamos el boton cuando hay foto
         }
     }
@@ -239,38 +242,7 @@ public class CardsMainActivity extends AppCompatActivity {
 
     }
 
-    private void deleteCamFile () {
-
-        String[] fileList = new String[] {
-                MediaStore.Images.ImageColumns._ID,
-                MediaStore.Images.ImageColumns.DATA,
-                MediaStore.Images.ImageColumns.BUCKET_DISPLAY_NAME,
-                MediaStore.Images.ImageColumns.DATE_TAKEN,
-                MediaStore.Images.ImageColumns.MIME_TYPE,
-
-        };
-
-        final Cursor cursor = getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                fileList, null, null,
-                MediaStore.Images.ImageColumns.DATE_TAKEN + " DESC");
-
-        if (cursor != null) {
-            cursor.moveToFirst();
-
-            int column_index_data = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-
-            String image_path = cursor.getString(column_index_data);
-
-            File file = new File(image_path);
-
-            if (file.exists()) {
-                file.delete();
-
-            }
-        }
-    }
-
-    private Bitmap setReducedImageSize () {
+    private Bitmap setReducedImageSize () { // reduce la imagen para adaptarse al imageView
 
         int targetImageViewWidth = takedPhoto.getWidth();
         int targetImageViewHeight = takedPhoto.getHeight();
@@ -285,9 +257,10 @@ public class CardsMainActivity extends AppCompatActivity {
         bmOptions.inSampleSize = scaleFactor;
         bmOptions.inJustDecodeBounds = false;
         Bitmap photoReducedSize = BitmapFactory.decodeFile(imageFullPath, bmOptions);
+
         takedPhoto.setImageBitmap(photoReducedSize);
 
-        return BitmapFactory.decodeFile(imageFullPath, bmOptions);
+        return photoReducedSize;
     }
 
     private void rotateImage (Bitmap bitmap) {
@@ -316,6 +289,20 @@ public class CardsMainActivity extends AppCompatActivity {
         }
 
         Bitmap rotatedBitmap = Bitmap.createBitmap(bitmap, 0,0, bitmap.getWidth(), bitmap.getHeight(), matrix,true);
+
+        // reduce el tamaño en disco de la imagen
+        OutputStream outStream = null;
+        try {
+            outStream = new FileOutputStream(imageFullPath);
+            rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 50, outStream);
+            outStream.close();
+            //Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_LONG).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // fin reduce el tamaño en disco de la imagen
+
         takedPhoto.setImageBitmap(rotatedBitmap);
 
     }
