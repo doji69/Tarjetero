@@ -9,7 +9,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
+import android.media.MediaScannerConnection;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -150,7 +152,7 @@ public class CardsMainActivity extends AppCompatActivity {
                 db.execSQL(sqlInsert);
                 db.close();
 
-                Toast.makeText(CardsMainActivity.this, "Insert correcto",Toast.LENGTH_SHORT).show();
+                Toast.makeText(CardsMainActivity.this, "Insert correcto", Toast.LENGTH_SHORT).show();
 
                 Intent MainActivityVars = new Intent(getApplication(), MainActivity.class);
                 startActivity(MainActivityVars);
@@ -177,7 +179,7 @@ public class CardsMainActivity extends AppCompatActivity {
         }
     }
 
-    private void callingCamApp () {
+    private void callingCamApp() {
 
         Intent callCameraApp = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
@@ -185,7 +187,7 @@ public class CardsMainActivity extends AppCompatActivity {
         try {
             photoFile = createImageFile();
             //Log.d(TAG, "el photoFile "+ photoFile );
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -207,9 +209,8 @@ public class CardsMainActivity extends AppCompatActivity {
         if (requestCode == camPermision && resultCode == RESULT_OK) {
 
             rotateImage(setReducedImageSize());
-            Functions.deleteCamFile(getContentResolver());
-            Intent refreshGallery = new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse("file://" + Environment.getExternalStorageDirectory()));
-            startActivity(refreshGallery);
+            Functions.deleteCamFile(getContentResolver(),this);
+
             btnSaveCard.setEnabled(true); // activamos el boton cuando hay foto
         }
     }

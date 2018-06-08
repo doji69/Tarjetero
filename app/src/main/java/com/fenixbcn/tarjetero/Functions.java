@@ -1,5 +1,6 @@
 package com.fenixbcn.tarjetero;
 
+import android.app.Application;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -8,9 +9,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -27,7 +30,7 @@ public class Functions {
         return db;
     }
 
-    public static void deleteCamFile (ContentResolver contentResolver) {
+    public static void deleteCamFile (ContentResolver contentResolver, Context context) {
 
         String[] fileList = new String[] {
                 MediaStore.Images.ImageColumns._ID,
@@ -54,6 +57,16 @@ public class Functions {
             if (file.exists()) {
                 file.delete();
 
+                // re-escanea la galeria de fotos y borra el place holder de la fotos que no existen
+                MediaScannerConnection.scanFile(context, new String[]{file.getAbsolutePath()}, null, new MediaScannerConnection.OnScanCompletedListener() {
+
+                    public void onScanCompleted(String path, Uri uri) {
+                        //Log.e("ExternalStorage", "Scanned " + path + ":");
+                        //Log.e("ExternalStorage", "-> uri=" + uri);
+                    }
+                });
+
+                // fin re-escanea la galeria de fotos y borra el place holder de la fotos que no existen
             }
         }
     }
