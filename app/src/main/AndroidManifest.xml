@@ -7,9 +7,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/logo500x500"
+        android:icon="@mipmap/logo"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/logo500x500rounded"
+        android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
@@ -47,8 +47,10 @@
         <activity
             android:name=".CardsGridActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".CardViewActivity" />
-        <activity android:name=".CardModifyActivity"></activity>
+        <activity android:name=".CardViewActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".CardModifyActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
